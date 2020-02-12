@@ -1,0 +1,215 @@
+\documentclass[12pt]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{babelbib}
+\usepackage{lmodern}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[numbers]{natbib}
+
+\begin{document}
+
+\title{Proyecto Final: Lavandería}
+\author{Hernandez Martínez Miguel Ángel \\ Quijano Ramírez Luis Alejandro \\ Nava Rosales Juan Manuel}
+\maketitle
+\tableofcontents
+
+\newpage
+
+\section{Objetivos}
+El objetivo principal del proyecto es poner en práctica lo aprendido a lo largo del curso en una aplicación que bien podría ser algo real.
+
+\par De manera específica, este proyecto, que busca crear un software para una lavandería en cuanto a la recepción y entrega. Se pensó para ser algo más que un pequeño proyecto o práctica. De este modo, además de hacer uso de varios de los conceptos vistos en clase, decidimos hacer el trabajo de la manera más profesional posible. 
+
+\par Así pues, el equipo define el objetivo particular del proyecto como un trabajo que bien puede dar una solución a un problema real, haciendo varios de los procesos persistentes en memoria, aplicando métricas de diseño para volver el código más fácil de reutilizar y crear la mejor solución posible.
+
+\section{Introducción}
+Se desea crear una aplicación que proporcione un sistema de software para el mostrador de una tintorería que apoye en la recepción, entrega y ventas. 
+
+Dry Clean Six Star es una empresa mexicana que se dedica al servicio de tintorería para todo tipo de prenda. Últimamente ha presentado una mayor demanda de sus servicios por lo que requiere un sistema de software para tener un mayor control de sus ventas, así como de sus
+clientes. La empresa ha trabajado de manera manual, pero desea actualizar su sistema a una infraestructura digital. Esta empresa cuenta con más de una sucursal, pero tiene una estructura centralizada por lo que le interesa llevar las ventas de cada sucursal y administrarlas desde un sistema central.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=1.25]{imagenes/logo.png}
+\caption{}
+\end{figure} 
+ 
+\section{Desarrollo}
+Con el fin de lograr una solución más completa al problema antes planteado en la introducción, se introdujeron diversos elementos vistos a lo largo del curso. A continuación, se explicarán de manera breve en qué consiste cada uno, pero de manera más profunda se comentará el modo en que se implementaron en nuestro proyecto.
+
+\subsection{Colecciones}
+Una colección es un grupo de objetos individuales representados como una sola unidad. Java provee una infraestructura de colecciones que define un amplio número de clases e interfaces que pueden ser usados para representar un grupo de elementos como una sola unidad, a esta infraestructura se le conoce como \textit{Collections Framework}.
+
+\par Uno de los grandes beneficios que conlleva usar \textit{Java Collections Framework} es el conjunto de interfaces estándar que provee. Todas las clases en esta infraestructura se conforman de una API común, lo cual facilita el entendimiento de dichas clases. El tipo de aplicación no importa, dado que el usuario ve la misma interfaz sin importar en qué esté trabajando. Las interfaces estándar hacen más fácil pasar una colección de objetos a un método como parámetro o valor de retorno. 
+
+\par Para esta implementación del proyecto, sólo usamos dos colecciones del \textit{Java Collections Framework}: \textit{LinkedList} y \textit{HashTable}. La primera se usó para almacenar instancias de los clientes registrados en el programa y para almacenar las instancias de las prendas que cada usuario ingresa en cada servicio. La segunda se trata de una tabla hash que nos servirá para darle valores a los precios de cada prenda a partir de la sucursal en la que se encuentre.
+
+\subsection{Paquetes}
+Los paquetes en Java (\textit{packages}) son la forma en que este lenguaje nos permite agrupar de alguna manera lógica los componentes de nuestra aplicación que estén relacionados entre sí.
+
+\par Los paquetes permiten poner en su interior casi cualquier cosa como: clases, interfaces, archivos de texto, entre otros. De este modo, los paquetes en Java ayudan a darle una buena organización a la aplicación ya que permiten modularizar o categorizar las diferentes estructuras que componen nuestro software.\\
+
+\par Dado que nuestra solución no involucra el uso de muchas clases, decidimos dividir nuestro proyecto en tres paquetes que agrupan las clases por su funcionalidad. En nuestra implementación se encuentran los paquetes: \textit{clases, lógica, vista e iconos}. 
+
+\subsubsection{Paquete: \textit{vista}}
+El paquete \textit{vista} contiene todas las clases relacionadas a la interfaz gráfica. Cada ventana hecha para nuestra solución es representada por un \textit{JFrame Form} generado por \textit{NetBeans}.
+
+\par A continuación se muestra un diagrama con las clases que contiene este paquete:
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.55]{imagenes/paquete_vista.png}
+\caption{Paquete: vista}
+\end{figure} 
+
+\subsubsection{Paquete: \textit{lógica}}
+El segundo paquete usado, lógica, contiene las clases necesarias para manejar únicamente archivos, esto es, las clases en este paquete sólo se dedicarán a hacer uso de archivos de texto u objetos, sin involucrar relaciones con el funcionamiento interior del programa. Un claro ejemplo del uso de las clases de este paquete se encuentra en el login, ya que el archivo necesario para almacenar los usuarios registrados es manejado por una clase que se encuentra en este paquete.
+
+\subsubsection{Paquete: \textit{clases}}
+En este paquete se definen las clases que se relacionan por medio de un patrón de diseño mediador. Esto es, estas clases serán las encargadas de llevar a cabo la mayoría de las acciones referentes al uso de la aplicación. A continuación se muestra un diagrama de clases referente al mediador en este paquete:
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=1.0]{imagenes/paquete_clases.png}
+\caption{Paquete: clases}
+\end{figure} 
+
+\subsubsection{Paquete: \textit{iconos}}
+Este ultimo paquete contiene únicamente los iconos utilizados para mejorar el aspecto de la interfaz y hacerlo más amigable con el usuario.
+
+\subsection{Modificadores de acceso}
+Los modificadores de acceso, como su nombre indica, determinan desde qué clases se puede acceder a un determinado elemento. En Java tenemos 4 tipos:\textit{ public, private, protected} y el tipo por defecto, que no tiene ninguna palabra clave asociada, pero se suele conocer como \textit{default} o \textit{package-private}.
+
+\par Si no especificamos ningún modificador de acceso se utiliza el nivel de acceso por defecto, que consiste en que el elemento puede ser accedido sólo desde las clases que pertenezcan al mismo paquete.
+
+\par Los modificadores de acceso nos introducen al concepto de encapsulamiento. El encapsulamiento busca de alguna forma controlar el acceso a los datos que conforman un objeto o instancia, de este modo podríamos decir que una clase y por ende sus objetos que hacen uso de modificadores de acceso (especialmente privados) son objetos encapsulados.\\
+
+\par El modo en que estructuramos la solución del programa requiere no se pueda acceder a ciertos campos de las clases desde cualquier lado, esto es, la mayoría de atributos son privados o de tipo \textit{default}, para que el acceso a ellos sea sólo por medio de los métodos de acceso o desde las clases del mismo paquete (el paquete \textit{clases}).
+
+\subsection{Herencia y polimorfismo}
+La herencia es un mecanismo que permite la definición de una clase a partir de la definición de otra ya existente. Ésta permite compartir automáticamente métodos y datos entre clases, subclases y objetos.
+
+\par La herencia está fuertemente ligada a la reutilización del código en la POO. Esto es, el código de cualquiera de las clases puede ser utilizado sin más que crear una clase derivada de ella, o bien una subclase.
+
+\par El polimorfismo es la habilidad de una función, método, variable u objeto de poseer varias formas distintas. Podríamos decir que un mismo identificador comparte varios significados diferentes.
+
+\par El propósito del polimorfismo es implementar un estilo de programación llamado envío de mensajes en el que los objetos interactúan entre ellos mediante estos mensajes, que no son más que llamadas a distintas funciones.
+
+\par Tanto el uso de interaces gráficas como de patrones conllevan implementación de interfaces y herencia. Creamos una interfaz mediadora que luego será implementada por nuestro mediador concreto. En cuanto a las interfaces gráficas, para que éstas se sirvan de \textit{Swing} es necesario que cada clase que representa una ventana herede de \textit{Swing} e implemente la interfaz \textit{Runnable} para poder hacer uso de hilos.
+
+\subsection{Clases abstractas e interfaces}
+Una clase abstracta es una clase de la cual no se pueden definir instancias (u objetos). Este tipo de clases nos permiten crear ``método generales'', que recrean un comportamiento común, pero sin especificar cómo lo hacen.
+
+\par Si una clases contiene uno o más métodos abstractos está clase debe ser abstracta. Su único fin es ser heredado/extendido por otras clases.
+
+\par Las interfaces, tal como las clases abstractas. no se pueden instanciar. Sus métodos deben ser re-escritos por la clase que implemente. Las interfaces sólo pueden contener métodos abstractos y a diferencia de la herencia de clases y clases abstractas, se pueden implementar más de una interfaz en una sola clase.
+
+\par Como ya se mencionó anteriormente, para hacer uso del patrón mediador se requirió crear una interfaz que luego sería implementada por un mediador concreto. 
+
+\par También es importante destacar el uso de algunas bibliotecas (para hacer uso de hilos o interfaces gráficas) que requirieron de implementar interfaces que provee el lenguaje Java. No se hizo uso de clases abstractas.
+
+\subsection{Excepciones}
+Una excepción es un comportamiento inesperado en el programa, ya sea por parte del usuario o las instrucciones del propio programa que no causaron un error de compilación.
+
+\par Las excepciones pueden terminar el programa con un mensaje específico que indica la razón por la cual se generó la excepción. El manejo de excepciones es el mecanismo previsto por el lenguaje de programación para el tratamiento de ese tipo de errores.
+
+\par Dado que hicimos uso de archivos, fue necesario manejar excepciones verificadas. En la ejecución del programa, existía la posibilidad de que el usuario ingresará un número de nota incorrecto, esto es, que indicará el nombre de un archivo inexistente. Para estas ocasiones, hicimos uso de bloques \textit{try-catch} para mostrar una ventana emergente con el error en el nombre del archivo y así poder continuar con el programa.
+
+\par Sucedió algo similar con el inicio de sesión, debido a que si el usuario que se desea ingresar no está registrado, salta una ventana con un mensaje de error.
+
+\subsection{Archivos}
+Una tarea común en programación es leer y escribir archivos. La información almacenada en un archivo pueden ser datos byte o caracteres (texto), y pueden ser leídos en la misma forma. Java cuenta con varias clases para el acceso a archivos, cada una con su propio conjunto específico de métodos.
+
+\par Una vez que acaba la aplicación, los datos siguen disponibles para que otra aplicación pueda recuperarlos, para su consulta o modificación. Es bajo esta última premisa que hacemos uso de archivos en nuestro proyecto dado que la intención del mismo es almacenar cierta información de manera persistente en la memoria.
+
+\subsubsection{Archivos de texto}
+La E/S de texto es una forma práctica de almacenar tipos de datos primitivos ya que para leer o escribir archivos de texto es posible usar casi cualquier otro tipo de programa de computadora (como los procesadores de texto y las hojas de cálculo).
+
+\par El primer uso de archivos en nuestro proyecto se trata de la generación de notas para la recepción de ropa en la lavandería, esto es, cuando un cliente completa una acción de servicio en la lavandería se le genera una nota con su nombre, lista de prendas y el total a pagar. Estas notas serán almacenadas en una carpeta de archivos generada en la ruta relativa del proyecto y permanecerán ahí hasta que se le ``entregue la ropa'' al usuario.
+
+\par Un segundo uso de los archivos de texto en nuestra implementación, se encuentra en las ganancias totales de la lavandería. Debido a que deseamos que las ganancias sean almacenadas de manera persiste en memoria, es decir, que con cada ejecución se sumen las ganancias en vez de sobrescribirla, igualamos la variable de ganancias al contenido de este archivo.
+
+\subsubsection{Archivos de objetos}
+El cpu al realizar el procesamiento, descompone objetos en datos primitivos para archivos, aunque también obtiene encabezados descriptivos. No es posible crear ni ver archivos de tipo objeto con un editor de texto, aunque la codificación se minimiza.
+
+\par Nuevamente, la necesidad de crear datos que sean persistentes en la memoria, nos llevó a hacer uso ahora de este tipo de archivos. El proyecto hace uso de cliente o usuarios que inician sesión cada vez que desean usar el programa, en caso de no estar registrados también pueden hacerlo. Debido a esto, cada que un cliente nuevo se registra en el programa es necesario guardarlo en algún lado para poder iniciar sesión con el nuevo usuario en el futuro.
+
+\par Este problema se soluciona al crear una lista que almacene instancias de la clase cliente, por lo que cada vez que alguien se registre en el programa su instancia se guardará en esta lista. Por otra parte, el inicio de sesión garantiza que los datos ingresados por el cliente coincidan con alguno de los usuarios registrados en la lista. Para que esta lista no se pierda al terminar, la almacenamos en un archivo de objetos.
+
+\subsection{Patrones de diseño}
+Un patrón de diseño es una solución general reutilizable que puede ser aplicada a problemas que ocurrieron en el desarrollo de software, es la descripción o plantilla de como resolver un problema que puede ser usado en diferentes situaciones. Los patrones de diseño son soluciones probadas, expresivas y fáciles de mantener. Muchos desarrolladores están familiarizados con los Patrones de diseño, así podemos decir que es un tipo de estándar de desarrollo. 
+
+\par Fueron creados por The Gang of Four (GoF): Erich Gamma, Richard Helm, Ralph Johnson y John Vlissides y aunque no son los únicos son los mas comunes. Se dividen en creacionales, estructurales y de comportamiento. Los elementos de un patrón son: su nombre, el problema, solución y consecuencia. Estos pueden ser adaptados a cualquier lenguaje. 
+
+\subsubsection{Mediator}
+Mediator es un patrón de diseño que define un objeto que hace de procesador central, coordinando las relaciones entre sus asociados o participantes. Permite la interacción de varios objetos, sin generar acoples fuertes en esas relaciones. Todos los objetos se comunican con un mediador y es éste quién realiza la comunicación con el resto. 
+
+\par Mediator puede usarse cuando:
+
+\renewcommand{\labelitemi}{$\bullet$}
+\begin{itemize}
+\item Un conjunto de objetos se comunican de maneras bien definidas pero complejas. Las interdependencias resultantes se encuentran poco estructuradas y difíciles de entender.
+\item Reutilizar un objeto resulta difícil porque se relaciona y comunica con muchos otros objetos.
+\item Un comportamiento que se distribuye entre varias clases debe ser configurable sin usar muchas subclases.
+\end{itemize}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=1.0]{imagenes/mediator.png}
+\caption{Diagrama de clases de Mediator}
+\end{figure} 
+
+\par Dado que en las especificaciones del proyecto se pedía ``centralizar el control'', vino a nuestra mente usar un diagrama mediador. Esta idea fue respaldada al ver el alto acoplamiento que conllevaría asociar las clases para generar propósitos comunes. De este modo, usamos la clase Lavandería para representar un servicio y usarla como clase mediadora que centralice el control y maneje la comunicación entre nuestras clases asociadas.
+
+\subsection{Hilos}
+Un hilo es un flujo de control dentro de un programa. Creando varios hilos podremos realizar varias tareas simultáneamente. Cada hilo tendrá sólo un contexto de ejecución (contador de programa, pila de ejecución). Es decir, a diferencia de los procesos UNIX, no tienen su propio espacio de memoria sino que acceden todos al mismo espacio de memoria común, por lo que será importante su sincronización cuando tengamos varios hilos accediendo a los mismos objetos. 
+
+\par En Java los hilos están encapsulados en la clase Thread. Para crear un hilo tenemos dos posibilidades: 
+
+\begin{itemize}
+\item Heredar de Thread redefiniendo el método \textit{run()}. 
+\item Crear una clase que implemente la interfaz Runnable que nos obliga a definir el método \textit{run()}. 
+\end{itemize}
+
+\par En ambos casos debemos definir un método run() que será el que contenga el código del hilo. Desde dentro de este método podremos llamar a cualquier otro método de cualquier objeto, pero este método run() será el método que se invoque cuando iniciemos la ejecución de un hilo. El hilo terminará su ejecución cuando termine de ejecutarse este método run(). 
+
+\par La razón de que existan estas dos posibilidades es que en Java no existe la herencia múltiple. Si una clase deriva de otra no podemos hacer que derive también de Thread. Por ejemplo, un applet deriva de la clase base Applet por tanto, ha de implementar la interfaz Runnable para que pueda definir el método run. 
+
+\par Para darle un toque especial a la ventana de inicio de sesión, decidimos añadir un reloj en tiempo real. Para que éste se ejecute a la par que la interfaz y se actualice cada segundo (como un reloj normal), tuvimos que hacer uso de un hilo que obtiene el tiempo actual y se actualiza cada segundo.
+
+\subsection{Interfaces gráficas}
+Llamamos Interfaz Gráfica GUI (Graphical User Interface) al conjunto de componentes gráficos que posibilitan la interacción entre el usuario y la aplicación. Es decir ventanas, botones, combos, listas, cajas de diálogo, campos de texto, etc.
+
+\subsubsection{Swing en Java}
+Java Swing es una herramienta de interfaz gráfica de usuario (GUI) dentro de la biblioteca \textit{java foundation class}. Incluye un paquete independiente el cual es el que tiene los componentes para el uso de la GUI. 
+
+\par La biblioteca de \textit{Swing} está basada en widgets propios de java (AWT) o bien los componentes gráficos, algunos con cierta funcionalidad tales como botones, cuadros de texto, etc. 
+
+\par Una aplicación Swing se construye mezclando componentes con lo siguiente: debe existir al menos un contenedor de alto nivel que provee el soporte que los componentes de Swing necesitan para el manejo de eventos y otros componentes colgando del contenedor de alto nivel. 
+
+\par Un frame (contenedor/ventana) como una instancia de la clase JFrame es una ventana con decoraciones, borde, título, botones, etc. Las aplicaciones con un GUI suelen tener por lo menos un frame que engloba al resto. Los botones del frame están ligados a algunas funciones y suele ser común sobrescribir el método del contenedor principal para que al cerrar esa ventana se cierre el programa. 
+
+\par Swing ya contiene varios métodos y clases para diversos componentes así como la estructura de estos, lo cual simplifica bastante su implementación. Incluso algunos IDE's como NetBeans o VIsualBasic ya cuentan con otra interfaz gráfica la cual facilita aún más el manejo y creación de el aspecto gráfico de una aplicación. 
+
+\par Con el fin de hacer el proyecto más amigable para el usuario, decimos crear una GUI para facilitar la interacción de los clientes con el programa. Cada opción descrita en los requerimientos del proyecto fue asociada a una ventana creada con la interfaz \textit{Swing} de Java.
+
+\section{Conclusiones}
+
+\subsection{Miguel Ángel Hernández Martínez}
+En general este proyecto me parece excelente para reafirmar todo el temario de POO. Pudimos aplicar todos y cada uno de los temas del temario, incluyendo los últimos como son patrones e hilos. Además de eso pudimos implementar interfaces gráficas los cuales es un plus para este proyecto. Como bien nos indico lo difícil no es aprender un lenguaje, si no un paradigma. Por esto yo creo que la parte mas difícil del proyecto fue la abstracción para poder hacer un correcto desarrollo e implementación del programa. En cuestión a las interfaces también hubo algo de investigación, pero no hubo mayor grado de complejidad. Concuerdo con usted en que a estas alturas ya se podría a empezar a trabajar. Pudimos tal vez agregar una base de datos sin problema investigando, sin embargo por cuestiones de tiempo ya no fue posible.  
+
+\par En conclusión yo siento que este proyecto es prueba de que se cumple el objetivo del curso y un poco mas. 
+
+\subsection{Juan Manuel Nava Rosales}
+El proyecto me sirvió para aplicar todos los temas vistos en la asignatura de P.O.O. y estudiar por mi propia cuenta temas interesantes como formularios gráficos (GUI de Swing) y poder utilizar herramientas como NetBeans para el desarrollo cooperativo; además de la programación también hubo redacción que me sirve como formación profesional, esto en la documentación, manual de usuario e investigación. Con el apoyo de mis compañeros se puro realizar de manera exitosa el proyecto sobre Lavandería, es decir, cumpliendo los requisitos de la propuesta realizada por un equipo del grupo, siempre con la idea de que un programa de software se puede mejorar cada vez más haciendo que el usuario pueda disfrutar de su experiencia en aplicaciones de venta como lo fue este proyecto.
+
+\subsection{Luis Alejandro Quijano Ramírez}
+El diseño orientado a objetos no resulta algo sencillo. Si bien a lo largo del curso terminé adorando el paradigma OO, también me pude dar cuenta que es algo muy completo y que requiere de amplios conocimientos. En este proyecto tratamos de acercarnos lo más posible a una implementación real de POO, pues no sólo trabajamos con interfaces gráficas, si no que hicimos que todos los datos fuesen persistentes en memoria permitiendo así que el código sea ejecutado más de una vez sin perder información (a diferencia de las prácticas).
+
+\par Además de lo antes mencionado, considero que la implementación de patrones de diseño a este proyecto le añade algo más de ``profesionalismo'', ya que por primera vez no programamos con fuerza bruta, si no que usamos estrategias de diseño bien planeadas para mejorar la forma en que nuestro programa funciona.
+
+
+\end{document}
